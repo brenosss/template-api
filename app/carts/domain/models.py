@@ -18,3 +18,20 @@ class Cart:
             created_at=self.created_at,
             closed=self.closed,
         )
+
+    @staticmethod
+    def from_sqlalchemy(sqlalchemy_cart: SQLAlchemyCart):
+        return Cart(
+            uuid=sqlalchemy_cart.uuid,
+            total_amount=sqlalchemy_cart.total_amount,
+            created_at=sqlalchemy_cart.created_at,
+            closed=sqlalchemy_cart.closed,
+        )
+
+    def to_dict(self):
+        return {
+            "uuid": self.uuid,
+            "total_amount": self.total_amount,
+            "created_at": self.created_at,
+            "closed": self.closed,
+        }

@@ -18,3 +18,4 @@ def CreateCartCommandHandler(command: CreateCartCommand) -> str:
         total_amount=command.total_amount,
     )
     cart_repository.save(cart)
+    return cart.uuid
