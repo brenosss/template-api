@@ -1,0 +1,29 @@
+services:
+    web:
+      extends:
+        file: ../app/compose.yml
+        service: web
+      container_name: fastapi_server_test
+      env_file:
+        - ../integration_tests/.env
+      ports: !reset []
+      volumes: !reset []
+    postgres:
+      extends:
+        file: ../app/compose.yml
+        service: postgres
+      container_name: postgres_test
+      env_file:
+        - ../integration_tests/.env
+      volumes: !reset []
+      ports: !reset []
+    tests:
+      container_name: tests
+      build:
+        context: .
+        dockerfile: Dockerfile
+      command: >
+        sh -c "pytest main.py"
+      depends_on:
+        web:
+          condition: service_started
